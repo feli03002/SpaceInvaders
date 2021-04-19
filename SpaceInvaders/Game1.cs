@@ -9,6 +9,11 @@ namespace SpaceInvaders
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+       
+        Rectangle SpaceshipBox = new Rectangle(100,100,40, 40);
+
+        Content.PlayerSpaceship Player = new Content.PlayerSpaceship();
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -18,8 +23,7 @@ namespace SpaceInvaders
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            Player.Pos = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
             base.Initialize();
         }
 
@@ -27,7 +31,7 @@ namespace SpaceInvaders
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            Player.SpaceshipTex = Content.Load<Texture2D>("Seeker");
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,16 +39,21 @@ namespace SpaceInvaders
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            if (Keyboard.GetState().IsKeyDown(Keys.A)|| Keyboard.GetState().IsKeyDown(Keys.Left))
+                Player.Move('L');
+            if (Keyboard.GetState().IsKeyDown(Keys.D)|| Keyboard.GetState().IsKeyDown(Keys.Right))
+                Player.Move('R');
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.Black);
+            
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(Player.SpaceshipTex, Player.Pos, Color.White);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
