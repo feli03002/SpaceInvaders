@@ -11,14 +11,18 @@ namespace SpaceInvaders.Content
     {
         Texture2D spaceshipTex;
         Vector2 pos;
-        Vector2 scale = new Vector2(1, 1);
-        Vector2 origin = new Vector2(0, 0);
+        double cooldown = 0;
         
+        
+        Vector2 scale = new Vector2(1, 1);
+
+
         public PlayerSpaceship()
         {
-           
-
+            // hitbox = new Rectangle(Convert.ToInt32(pos.X), Convert.ToInt32(pos.Y), 100, 100);
+            
         }
+        
         public void Move(Char direction)
         {
             if (direction == 'L')
@@ -41,10 +45,11 @@ namespace SpaceInvaders.Content
             get { return scale; }
             set { scale = value; }
         }
-        public Vector2 Origin
+        public double Cooldown
         {
-            get { return origin; }
-            set { origin = value; }
+            get { return cooldown; }
+            set { cooldown = value; }
         }
+       
     }
 }
